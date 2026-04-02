@@ -1,0 +1,217 @@
+@theme {
+    --color-brand: var(--color-indigo-500);
+}
+
+/* Ant Design Overrides for Premium Theme */
+.ant-modal-content {
+    padding: 0 !important;
+    background-color: var(--bg-primary) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 24px !important;
+    overflow: hidden !important;
+}
+
+.ant-modal-body {
+    padding: 0 !important;
+}
+
+/* Remove default white background of AntD inputs and addons */
+.ant-input-group-addon {
+    background-color: transparent !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.ant-radio-button-wrapper {
+    background-color: transparent !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+    background-color: rgba(99, 102, 241, 0.15) !important;
+    border-color: #6366f1 !important;
+}
+
+/* Premium Select and Input Height/Style Overrides */
+.premium-checkout-v3 .ant-select-selector {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    height: 64px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.premium-checkout-v3 .ant-input-group-addon {
+    background-color: transparent !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    height: 64px !important;
+    padding: 0 20px !important;
+}
+
+.premium-checkout-v3 .ant-select-selection-item {
+    font-weight: 700 !important;
+}
+
+.premium-checkout-v3 .ant-select-arrow {
+    color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.premium-checkout-v3 .ant-input-affix-wrapper {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding-left: 20px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.premium-checkout-v3 .ant-input-affix-wrapper:hover,
+.premium-checkout-v3 .ant-input-affix-wrapper-focused {
+    border-color: rgba(99, 102, 241, 0.5) !important;
+    background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.premium-checkout-v3 .ant-input {
+    background-color: transparent !important;
+}
+
+.premium-select-ui .ant-select-selector {
+    height: 64px !important;
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding: 0 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    border-radius: 16px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.premium-select-ui:hover .ant-select-selector {
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.premium-select-ui.ant-select-focused .ant-select-selector {
+    border-color: #6366f1 !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1) !important;
+}
+
+.premium-select-ui .ant-select-selection-item {
+    font-weight: 700 !important;
+    color: white !important;
+}
+
+.premium-select-ui .ant-select-selection-placeholder {
+    color: #4b5563 !important;
+    font-weight: 700 !important;
+}
+
+.premium-select-ui .ant-select-arrow {
+    color: rgba(255, 255, 255, 0.3) !important;
+    right: 16px !important;
+}
+
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+/* ─── Base Styles ─── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --color-creme: #edeae1;
+    --color-bone: #d4cbbd;
+    --color-oak: #a99e8f;
+    --color-clay: #867a6b;
+
+    --bg-primary: var(--color-creme);
+    --bg-secondary: var(--color-bone);
+    --surface-primary: var(--color-creme);
+    --surface-secondary: var(--color-bone);
+    --text-primary: #3b352e;
+    --text-secondary: var(--color-clay);
+    --text-muted: var(--color-oak);
+    --border-color: var(--color-oak);
+    --card-bg: var(--color-creme);
+    --card-border: var(--color-oak);
+    --input-bg: var(--color-bone);
+    --input-border: var(--color-oak);
+    --icon-color: var(--color-clay);
+}
+
+.dark {
+    --bg-primary: #2c2824;
+    --bg-secondary: #3b352e;
+    --surface-primary: #2c2824;
+    --surface-secondary: #3b352e;
+    --text-primary: var(--color-creme);
+    --text-secondary: var(--color-bone);
+    --text-muted: var(--color-oak);
+    --border-color: var(--color-clay);
+    --card-bg: #2c2824;
+    --card-border: var(--color-clay);
+    --input-bg: #3b352e;
+    --input-border: var(--color-clay);
+    --icon-color: var(--color-bone);
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ─── Smooth Scrolling ─── */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ─── Scrollbar Styling ─── */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1f1f2e;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #2a2a3e;
+}
+
+/* ─── Line Clamp Utilities ─── */
+.line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+@keyframes wave {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}

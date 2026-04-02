@@ -1,0 +1,133 @@
+{
+    "common": {
+        "status": {
+            "draft": "Brouillon",
+            "active": "Actif",
+            "ended": "Terminé",
+            "past": "Passé",
+            "suspended": "Suspendu",
+            "inactive": "Inactif",
+            "pending": "En attente",
+            "ready": "Prêt",
+            "expired": "Expiré",
+            "completed": "Complété",
+            "approved": "Approuvé",
+            "flagged": "Signalé",
+            "rejected": "Rejeté",
+            "pending_changes": "Modifications en attente"
+        }
+    },
+    "nav": {
+        "products": "Produits",
+        "about": "À Propos",
+        "affiliation": "Affiliation",
+        "contact": "Contact",
+        "my_orders": "Mes Commandes",
+        "get_started": "Commencer"
+    },
+    "home": {
+        "title": "Boutique Numérique Mondiale",
+        "description": "Débloquez des logiciels premium, e-books, templates et outils de créateurs d'élite.",
+        "search": "Rechercher des produits...",
+        "no_products": "Aucun produit trouvé",
+        "try_adjusting": "Essayez d'ajuster votre recherche ou vos filtres."
+    },
+    "product": {
+        "featured": "Vedette",
+        "view_details": "Voir Détails",
+        "buy_now": "Acheter Maintenant",
+        "guarantee": {
+            "money_back": "Livraison numérique vérifiée",
+            "lifetime": "Accès à vie avec mises à jour",
+            "secure": "Paiement mobile sécurisé (MTN, Orange Money)"
+        },
+        "description": "Description"
+    },
+    "about": {
+        "mission": "La Boutique de Référence pour les",
+        "democratize": "Produits Numériques",
+        "hero_desc": "DIGIELERNING est une boutique de logiciels et une marketplace de pointe conçue pour autonomiser les créateurs. Nous fournissons l'infrastructure permettant aux développeurs, designers et formateurs de vendre leurs produits directement à une audience mondiale.",
+        "stats": {
+            "learners": "Créateurs Actifs",
+            "courses": "Produits Listés",
+            "satisfaction": "Ventes Réussies",
+            "countries": "Paiements Effectués"
+        },
+        "story": {
+            "tag": "Notre Vision",
+            "title": "Propulser l'Économie Numérique",
+            "p1": "Fondée en 2024, DIGIELERNING est née pour lever les obstacles complexes auxquels font face les créateurs numériques en Afrique et ailleurs. Nous voulions jeter un pont entre les produits de haute qualité et ceux qui en ont besoin.",
+            "p2": "Aujourd'hui, nous fonctionnons comme un magasin numérique robuste où chacun peut lister des logiciels, e-books, modèles et cours. Notre plateforme gère les paiements sécurisés, la livraison et les licences.",
+            "p3": "Notre engagement envers une économie axée sur les créateurs signifie des commissions réduites, des paiements plus rapides via Mobile Money et une expérience d'achat premium."
+        },
+        "team": {
+            "tag": "Équipe",
+            "title": "Les Esprits derrière la Boutique",
+            "desc": "L'équipe dédiée à la construction du futur du commerce numérique chez DIGIELERNING."
+        }
+    },
+    "affiliation": {
+        "title": "Vendez Vos Produits sur",
+        "hero_desc": "Rejoignez notre réseau de développeurs de logiciels et de créateurs numériques. Atteignez des milliers de clients au Cameroun et dans le monde entier.",
+        "cta": "Devenir Partenaire",
+        "perks": {
+            "revenue": {
+                "title": "Partage des Revenus",
+                "desc": "Gagnez jusqu'à 70% sur chaque vente. Vos produits, vos profits."
+            },
+            "reach": {
+                "title": "Portée Mondiale",
+                "desc": "Accédez à une communauté massive de professionnels et d'utilisateurs sur plusieurs continents."
+            },
+            "security": {
+                "title": "Paiements Sécurisés",
+                "desc": "Paiements rapides et sécurisés via Mobile Money ou Virement Bancaire."
+            }
+        },
+        "form": {
+            "title": "Demande de Créateur",
+            "desc": "Parlez-nous de vos produits numériques et de votre expertise.",
+            "fields": {
+                "name": "Nom Complet",
+                "email": "Adresse Email",
+                "company": "Entreprise / Nom de Marque",
+                "website": "Portfolio / Lien Magasin",
+                "product_type": "Type de Produit",
+                "description": "Parlez-nous de votre produit...",
+                "submit": "Soumettre la Demande"
+            }
+        }
+    },
+    "contact": {
+        "tag": "Contact",
+        "title": "Contactez-nous",
+        "desc": "Vous avez une question, des commentaires ou vous souhaitez devenir partenaire ? Nous serions ravis de vous entendre.",
+        "form": {
+            "title": "Envoyez-nous un Message",
+            "desc": "Notre équipe d'assistance vous répondra dans les 24 heures.",
+            "fields": {
+                "first_name": "Prénom",
+                "last_name": "Nom",
+                "email": "Email",
+                "subject": "Sujet",
+                "message": "Message",
+                "submit": "Envoyer le Message"
+            }
+        }
+    },
+    "orders": {
+        "tag": "Compte",
+        "title": "Mes Commandes",
+        "desc": "Suivez le statut de vos achats et accédez à votre contenu numérique.",
+        "empty": "Aucune commande pour le moment",
+        "empty_desc": "Explorez notre boutique et trouvez quelque chose qui vous plaît.",
+        "browse": "Consulter le Catalogue"
+    },
+    "footer": {
+        "description": "La première marketplace mondiale de produits numériques premium. Donner les moyens aux créateurs et aux utilisateurs de grandir ensemble dans l'économie numérique.",
+        "privacy": "Politique de Confidentialité",
+        "terms": "Conditions d'Utilisation",
+        "legal": "Mentions Légales",
+        "rights": "© 2026 DIGIELERNING Inc. Tous droits réservés."
+    }
+}

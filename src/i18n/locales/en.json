@@ -1,0 +1,133 @@
+{
+    "common": {
+        "status": {
+            "draft": "Draft",
+            "active": "Active",
+            "ended": "Ended",
+            "past": "Past",
+            "suspended": "Suspended",
+            "inactive": "Inactive",
+            "pending": "Pending",
+            "ready": "Ready",
+            "expired": "Expired",
+            "completed": "Completed",
+            "approved": "Approved",
+            "flagged": "Flagged",
+            "rejected": "Rejected",
+            "pending_changes": "Pending Changes"
+        }
+    },
+    "nav": {
+        "products": "Products",
+        "about": "About Us",
+        "affiliation": "Affiliation",
+        "contact": "Contact",
+        "my_orders": "My Orders",
+        "get_started": "Get Started"
+    },
+    "home": {
+        "title": "Global Digital Storefront",
+        "description": "Unlock premium software, e-books, templates and tools from elite digital creators.",
+        "search": "Search products...",
+        "no_products": "No products found",
+        "try_adjusting": "Try adjusting your search or filters."
+    },
+    "product": {
+        "featured": "Featured",
+        "view_details": "View Details",
+        "buy_now": "Buy Now",
+        "guarantee": {
+            "money_back": "Verified digital delivery",
+            "lifetime": "Lifetime access with updates",
+            "secure": "Secure mobile payment (MTN, Orange Money)"
+        },
+        "description": "Description"
+    },
+    "about": {
+        "mission": "The Premier Marketplace for",
+        "democratize": "Digital Products",
+        "hero_desc": "DIGIELERNING is a state-of-the-art software shop and marketplace built to empower creators. We provide the infrastructure for developers, designers, and educators to sell their digital products directly to a global audience.",
+        "stats": {
+            "learners": "Active Creators",
+            "courses": "Products Listed",
+            "satisfaction": "Successful Sales",
+            "countries": "Payouts Processed"
+        },
+        "story": {
+            "tag": "Our Vision",
+            "title": "Empowering the Digital Economy",
+            "p1": "Founded in 2024, DIGIELERNING emerged as a solution to the complex hurdles faced by digital creators in Africa and beyond. We wanted to build a bridge between high-quality software products and the people who need them.",
+            "p2": "Today, we function as a robust digital storefront where anyone can list software, e-books, templates, and courses. Our platform handles the secure payments, delivery, and licensing so creators can focus on what they do best: building.",
+            "p3": "Our commitment to a creator-first economy means lower fees, faster payouts via Mobile Money, and a premium shopping experience for every customer."
+        },
+        "team": {
+            "tag": "Team",
+            "title": "The Minds Behind the Shop",
+            "desc": "The team dedicated to building the future of digital commerce at DIGIELERNING."
+        }
+    },
+    "affiliation": {
+        "title": "Sell Your Products on",
+        "hero_desc": "Join our network of expert software developers and digital creators. Reach thousands of customers in Cameroon and across the globe.",
+        "cta": "Apply as Partner",
+        "perks": {
+            "revenue": {
+                "title": "Revenue Sharing",
+                "desc": "Earn up to 70% of every sale. Your products, your profits."
+            },
+            "reach": {
+                "title": "Global Reach",
+                "desc": "Access a massive community of professionals and users across multiple continents."
+            },
+            "security": {
+                "title": "Secure Payments",
+                "desc": "Fast and secure payouts via Mobile Money or Bank Transfer."
+            }
+        },
+        "form": {
+            "title": "Creator Application",
+            "desc": "Tell us about your digital products and expertise.",
+            "fields": {
+                "name": "Full Name",
+                "email": "Email Address",
+                "company": "Company / Brand Name",
+                "website": "Portfolio / Store Link",
+                "product_type": "Product Type",
+                "description": "Tell us about your product...",
+                "submit": "Submit Application"
+            }
+        }
+    },
+    "contact": {
+        "tag": "Contact",
+        "title": "Get in Touch",
+        "desc": "Have a question, feedback, or want to partner with us? We'd love to hear from you.",
+        "form": {
+            "title": "Send Us a Message",
+            "desc": "Our support team will respond within 24 hours.",
+            "fields": {
+                "first_name": "First Name",
+                "last_name": "Last Name",
+                "email": "Email",
+                "subject": "Subject",
+                "message": "Message",
+                "submit": "Send Message"
+            }
+        }
+    },
+    "orders": {
+        "tag": "Account",
+        "title": "My Orders",
+        "desc": "Track the status of your purchases and access your digital content.",
+        "empty": "No orders yet",
+        "empty_desc": "Explore our shop and find something you love.",
+        "browse": "Browse Catalog"
+    },
+    "footer": {
+        "description": "The world's premier marketplace for premium digital products. Empowering creators and users to grow together in the digital economy.",
+        "privacy": "Privacy Policy",
+        "terms": "Terms of Use",
+        "legal": "Legal Notice",
+        "rights": "© 2026 DIGIELERNING Inc. All rights reserved."
+    }
+}
