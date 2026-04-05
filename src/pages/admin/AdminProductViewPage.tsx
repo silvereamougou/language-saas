@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useProduct } from '../../hooks/useProducts';
 import { ArrowLeft, Download, DollarSign, Layers, Activity, Plus } from 'lucide-react';
 import { Badge, Input as UIInput } from '../../components/ui';
-import type { Product, ProductVersion } from '../../types';
+import type { ProductVersion } from '../../types';
 
 const AdminProductViewPage: React.FC = () => {
     const navigate = useNavigate();
@@ -70,10 +70,10 @@ const AdminProductViewPage: React.FC = () => {
 
                 <div className="flex-1 space-y-2 relative">
                     <div className="flex items-center gap-3">
-                        <Badge variant="status">{product.category}</Badge>
+                        <Badge>{product.category}</Badge>
                         <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${product.status === 'Published' ? 'bg-emerald-500/10 text-emerald-500' :
-                                product.status === 'Draft' ? 'bg-amber-500/10 text-amber-500' :
-                                    'bg-red-500/10 text-red-500'
+                            product.status === 'Draft' ? 'bg-amber-500/10 text-amber-500' :
+                                'bg-red-500/10 text-red-500'
                             }`}>
                             {product.status}
                         </span>

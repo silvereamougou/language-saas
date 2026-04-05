@@ -1,5 +1,6 @@
 export interface Product {
     _id: string;
+    id?: string;
     name: string;
     description: string;
     price: number;
@@ -47,6 +48,8 @@ export interface Order {
     productImage?: string;
     date?: string;
     price?: number;
+    customerName?: string;
+    quantity?: number;
 }
 
 export interface DownloadToken {

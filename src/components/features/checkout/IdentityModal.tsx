@@ -62,7 +62,7 @@ const IdentityModal: React.FC<IdentityModalProps> = ({ visible, onClose, onSucce
                     border: '1px solid var(--border-color)',
                     padding: 0
                 }
-            }}
+            } as any}
         >
             <div className="p-10 text-center space-y-8 bg-surface-primary">
                 <div className="w-20 h-20 bg-(--icon-color)/10 rounded-3xl flex items-center justify-center mx-auto text-(--icon-color) shadow-xl shadow-indigo-500/10">

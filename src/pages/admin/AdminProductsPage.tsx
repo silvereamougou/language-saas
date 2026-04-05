@@ -150,7 +150,7 @@ const AdminProductsPage: React.FC = () => {
                                         </div>
                                         <div>
                                             <h4 className="font-bold text-sm text-text-primary line-clamp-1">{product.name}</h4>
-                                            <p className="text-[10px] text-text-muted mt-0.5">ID: {product.id}</p>
+                                            <p className="text-[10px] text-text-muted mt-0.5">ID: {product._id}</p>
                                         </div>
                                     </div>
                                     <div className="text-right shrink-0">

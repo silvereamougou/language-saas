@@ -2,11 +2,10 @@ import { ShoppingBag, TrendingUp, Users, DollarSign } from 'lucide-react';
 import { useOrders } from '../../hooks/useOrders';
 
 const AdminOrdersPage: React.FC = () => {
-    const { orders, isLoading, error } = useOrders();
+    const { orders, isLoading } = useOrders();
 
     // Calculated stats from real data
     const totalRevenue = orders.reduce((sum, order) => sum + (order.amount || 0), 0);
-    const completedOrders = orders.filter(o => o.status === 'success' || o.status === 'Completed').length;
 
     const stats = [
         { title: 'Total Orders', value: orders.length.toString(), icon: <ShoppingBag size={24} />, color: 'text-(--text-primary)', bg: 'bg-(--icon-color)/20' },
@@ -70,8 +69,8 @@ const AdminOrdersPage: React.FC = () => {
                                     <td className="p-4 text-text-muted">{new Date(order.createdAt).toLocaleDateString()}</td>
                                     <td className="p-4 text-text-primary font-bold">XAF {new Intl.NumberFormat().format(order.amount)}</td>
                                     <td className="p-4">
-                                        <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${order.status === 'success' || order.status === 'Completed' ? 'bg-emerald-500/10 text-emerald-500' :
-                                            order.status === 'pending' || order.status === 'Processing' ? 'bg-yellow-500/10 text-yellow-500' :
+                                        <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${order.status === 'success' ? 'bg-emerald-500/10 text-emerald-500' :
+                                            order.status === 'pending' ? 'bg-yellow-500/10 text-yellow-500' :
                                                 'bg-red-500/10 text-red-500'
                                             }`}>
                                             {order.status}
@@ -91,8 +90,8 @@ const AdminOrdersPage: React.FC = () => {
                                         <div className="text-sm font-black text-text-primary tracking-tight">#{order._id.slice(-6).toUpperCase()}</div>
                                         <div className="text-xs text-text-muted mt-0.5">{new Date(order.createdAt).toLocaleDateString()}</div>
                                     </div>
-                                    <span className={`px-2.5 py-1 rounded-full text-[9px] font-black uppercase tracking-widest ${order.status === 'success' || order.status === 'Completed' ? 'bg-emerald-500/10 text-emerald-500' :
-                                        order.status === 'pending' || order.status === 'Processing' ? 'bg-yellow-500/10 text-yellow-500' :
+                                    <span className={`px-2.5 py-1 rounded-full text-[9px] font-black uppercase tracking-widest ${order.status === 'success' ? 'bg-emerald-500/10 text-emerald-500' :
+                                        order.status === 'pending' ? 'bg-yellow-500/10 text-yellow-500' :
                                             'bg-red-500/10 text-red-500'
                                         }`}>
                                         {order.status}

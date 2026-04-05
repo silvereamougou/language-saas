@@ -17,7 +17,9 @@ const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
     const { generateDownloadToken } = useApi();
     const [isDownloading, setIsDownloading] = React.useState(false);
 
-    const formattedTotal = new Intl.NumberFormat(i18n.language === 'fr' ? 'fr-FR' : 'en-US').format(order.price * order.quantity);
+    const price = order.price || 0;
+    const qty = order.quantity || 1;
+    const formattedTotal = new Intl.NumberFormat(i18n.language === 'fr' ? 'fr-FR' : 'en-US').format(price * qty);
 
     const handleDownload = async () => {
         try {
@@ -63,8 +65,8 @@ const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
                         </div>
                     )}
 
-                    <p className="text-[var(--text-secondary)] text-[10px] font-bold uppercase tracking-widest opacity-60">
-                        Qty: {order.quantity} × XAF {new Intl.NumberFormat().format(order.price)}
+                    <p className="text-(--text-secondary) text-[10px] font-bold uppercase tracking-widest opacity-60">
+                        Qty: {qty} × XAF {new Intl.NumberFormat().format(price)}
                     </p>
                 </div>
             </div>

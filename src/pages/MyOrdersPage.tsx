@@ -1,17 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Package, ShoppingBag, PlusCircle, ShoppingCart } from 'lucide-react';
+import { Package, ShoppingBag, PlusCircle, ShoppingCart, ShieldCheck } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { SectionHeading, Button } from '../components/ui';
 import OrderItem from '../components/features/orders/OrderItem';
-import { PackageOpen, ArrowRight, CheckCircle2, Clock } from 'lucide-react';
 import { useMyOrders } from '../hooks/useOrders';
 import { useCart } from '../context/CartContext';
 import { useUser } from '../context/UserContext';
 import { useApi } from '../context/ApiContext';
 import { message } from 'antd';
-import { ShieldCheck } from 'lucide-react';
 
 const MyOrdersPage: React.FC = () => {
     const { t } = useTranslation();
@@ -25,7 +23,7 @@ const MyOrdersPage: React.FC = () => {
     const sortedOrders = [...orders].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
     const handleCheckout = async () => {
-        if (cartItems.length === 0) return;
+        if (cartItems.length === 0 || !user) return;
 
         if (!customerToken) {
             // Should probably trigger login modal here instead
@@ -80,7 +78,10 @@ const MyOrdersPage: React.FC = () => {
                             <div className="p-2 rounded-xl bg-(--icon-color)/10 text-(--icon-color)">
                                 <ShoppingCart size={20} />
                             </div>
-                            <h3 className="text-xl font-black uppercase tracking-tight">Pending Selections</h3>
+                            <div className="text-xs font-black uppercase tracking-widest text-text-primary mb-2">Notice</div>
+                            <div className="text-[10px] font-medium text-text-muted space-y-1">
+                                <p>Signed as {user?.email}</p>
+                            </div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {cartItems.map((item, i) => (
@@ -97,7 +98,8 @@ const MyOrdersPage: React.FC = () => {
                                             <img src={item.image || item.thumbnail} alt={item.name} className="w-full h-full object-cover" />
                                         </div>
                                         <div>
-                                            <h4 className="font-bold text-text-primary uppercase tracking-tight line-clamp-1">{item.name}</h4>
+                                            <div className="text-right text-text-primary text-sm font-bold uppercase tracking-widest">{user?.name || 'Customer'}</div>
+                                            <div className="text-right text-text-muted text-[10px] font-black uppercase tracking-[0.2em]">{user?.email || 'N/A'}</div>
                                             <p className="text-[10px] text-text-muted font-bold uppercase tracking-widest mt-1">XAF {new Intl.NumberFormat().format(item.price)}</p>
                                         </div>
                                     </div>

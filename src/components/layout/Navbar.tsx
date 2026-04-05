@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Menu, X, ShoppingBag, Languages, User as UserIcon, LogOut, ChevronDown } from 'lucide-react';
+import { Menu, X, ShoppingBag, Languages, LogOut, ChevronDown, PackageOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { cn } from '../../lib/utils';
@@ -49,12 +49,12 @@ const Navbar: React.FC = () => {
             key: 'orders',
             label: (
                 <Link to="/orders" className="flex items-center gap-2 px-4 py-2 hover:text-(--icon-color) transition-colors font-bold uppercase text-[10px] tracking-widest">
-                    <ShoppingBag size={14} /> My Library
+                    <PackageOpen size={14} /> My Library
                 </Link>
             ),
         },
         {
-            type: 'divider',
+            type: 'divider' as const,
         },
         {
             key: 'logout',
