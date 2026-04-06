@@ -66,6 +66,7 @@ const CartDrawer: React.FC = () => {
                 placement="right"
                 onClose={() => setIsOpen(false)}
                 open={isOpen}
+                size="default"
                 width={400}
                 className="premium-cart-drawer"
                 styles={{
