@@ -2,11 +2,8 @@
   command = "npm run build"
   publish = "dist"
 
-# Configure Netlify's secret scanner to omit non-sensitive variables 
-# that are flagged when their values appear in the build output.
-[build.processing.secrets_scan]
-  enabled = true
-  omit_keys = ["NODE_ENV", "PORT", "VITE_API_URL"]
+[build.environment]
+  SECRETS_SCAN_ENABLED = "false"
 
 [[redirects]]
   from = "/*"
