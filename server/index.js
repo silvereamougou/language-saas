@@ -30,6 +30,10 @@ mongoose.connect(MONGODB_URI)
 
 // --- API Routes ---
 
+app.get('/', (req, res) => {
+    res.send('🚀 Language SaaS Backend is live!');
+});
+
 // 1. Health Check
 app.get('/api/health', (req, res) => res.json({ status: 'OK' }));
 
