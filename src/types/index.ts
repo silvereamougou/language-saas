@@ -34,7 +34,7 @@ export interface Order {
     _id: string;
     email: string;
     name?: string; // Optional per schema
-    productId: string; // Reference to Product
+    productId: string | Product; // Reference to Product
     amount: number;
     status: 'pending' | 'success' | 'failed';
     transactionId: string;

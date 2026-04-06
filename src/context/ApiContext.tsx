@@ -7,6 +7,7 @@ interface ApiContextType {
     saveProduct: (product: Partial<Product>, id?: string) => Promise<Product>;
     deleteProduct: (id: string) => Promise<void>;
     createOrder: (order: Partial<Order>) => Promise<Order>;
+    createManualOrder: (order: any) => Promise<Order>;
     fetchOrders: () => Promise<Order[]>;
     fetchMyOrders: () => Promise<Order[]>;
     addVersion: (productId: string, version: any) => Promise<any>;
@@ -77,6 +78,16 @@ export const ApiProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         return res.json();
     };
 
+    const createManualOrder = async (orderData: any) => {
+        const res = await fetch(`${API_BASE}/admin/orders`, {
+            method: 'POST',
+            headers: getAuthHeaders(),
+            body: JSON.stringify(orderData),
+        });
+        if (!res.ok) throw new Error('Failed to create manual order');
+        return res.json();
+    };
+
     const fetchOrders = async () => {
         // Admin uses this, so it should use admin getAuthHeaders()
         const res = await fetch(`${API_BASE}/orders`, {
@@ -124,6 +135,7 @@ export const ApiProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
             saveProduct,
             deleteProduct,
             createOrder,
+            createManualOrder,
             fetchOrders,
             fetchMyOrders,
             addVersion,

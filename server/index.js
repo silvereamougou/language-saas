@@ -215,6 +215,29 @@ app.post('/api/orders', requireUser, async (req, res) => {
     }
 });
 
+app.post('/api/admin/orders', requireAdmin, async (req, res) => {
+    try {
+        const { userEmail, productId, amount, status } = req.body;
+        const newOrder = await Order.create({
+            userEmail,
+            productId,
+            amount: Number(amount),
+            status: status || 'success',
+            transactionId: `MANUAL-${Math.random().toString(36).substr(2, 9).toUpperCase()}`,
+            hasAccess: true
+        });
+
+        // Update product analytics
+        await Product.findByIdAndUpdate(productId, {
+            $inc: { totalSales: 1, revenue: Number(amount) || 0 }
+        });
+
+        res.status(201).json(newOrder);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+});
+
 // 6. Product Versions
 app.post('/api/products/:id/versions', requireAdmin, async (req, res) => {
     try {

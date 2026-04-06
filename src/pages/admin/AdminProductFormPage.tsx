@@ -2,11 +2,24 @@ import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import type { Product } from '../../types';
 import { useProduct } from '../../hooks/useProducts';
+import { useApi } from '../../context/ApiContext';
 import { Input, ImagePicker } from '../../components/ui';
 import { ArrowLeft } from 'lucide-react';
 
+const CATEGORIES = [
+    'Web Development',
+    'Artificial Intelligence',
+    'Design',
+    'Cybersecurity',
+    'Data Science',
+    'Mobile Development',
+    'Cloud',
+    'Marketing'
+];
+
 const AdminProductFormPage: React.FC = () => {
     const navigate = useNavigate();
+    const { saveProduct } = useApi();
     const { id } = useParams<{ id: string }>();
     const isEdit = Boolean(id);
     const { product: serverProduct, isLoading } = useProduct(id);
@@ -39,25 +52,12 @@ const AdminProductFormPage: React.FC = () => {
         setEditingProduct({ ...editingProduct, gallery: [...(editingProduct.gallery || []), ''] });
     };
 
-    const saveProduct = async () => {
+    const saveProductAction = async () => {
         try {
             setIsSaving(true);
             setSaveError(null);
 
-            const url = isEdit
-                ? `http://localhost:5000/api/products/${id}`
-                : 'http://localhost:5000/api/products';
-
-            const method = isEdit ? 'PUT' : 'POST';
-
-            const response = await fetch(url, {
-                method,
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(editingProduct),
-            });
-
-            if (!response.ok) throw new Error('Failed to save product');
-
+            await saveProduct(editingProduct, id);
             navigate('/admin/products');
         } catch (err: any) {
             setSaveError(err.message);
@@ -157,13 +157,20 @@ const AdminProductFormPage: React.FC = () => {
                             </div>
 
                             <div className="flex gap-4">
-                                <div className="flex-1">
-                                    <Input
-                                        label="Category"
-                                        placeholder="e.g. Development"
+                                <div className="flex-1 space-y-2">
+                                    <label className="text-xs font-black text-text-secondary uppercase tracking-widest px-1">
+                                        Category
+                                    </label>
+                                    <select
+                                        className="w-full h-14 px-4 rounded-xl bg-input-bg border border-input-border text-text-primary outline-none hover:border-text-muted/50 focus:border-[var(--text-primary)] transition-all font-bold text-xs uppercase tracking-widest"
                                         value={editingProduct?.category || ''}
                                         onChange={(e) => setEditingProduct({ ...editingProduct, category: e.target.value })}
-                                    />
+                                    >
+                                        <option value="" disabled>Select a category</option>
+                                        {CATEGORIES.map(cat => (
+                                            <option key={cat} value={cat}>{cat}</option>
+                                        ))}
+                                    </select>
                                 </div>
                                 <div className="flex-1 space-y-2">
                                     <label className="text-xs font-black text-text-secondary uppercase tracking-widest px-1">
@@ -201,7 +208,7 @@ const AdminProductFormPage: React.FC = () => {
                         )}
 
                         <button
-                            onClick={saveProduct}
+                            onClick={saveProductAction}
                             disabled={isSaving || isLoading}
                             className={`w-full h-16 bg-(--text-primary) hover:opacity-90 text-(--bg-primary) font-black uppercase tracking-[0.2em] text-[11px] rounded-2xl transition-all shadow-2xl shadow-black/10 flex items-center justify-center gap-3 mt-10 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed`}
                         >
