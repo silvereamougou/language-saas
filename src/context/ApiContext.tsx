@@ -16,7 +16,20 @@ interface ApiContextType {
 
 const ApiContext = createContext<ApiContextType | undefined>(undefined);
 
-const API_BASE = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/+$/, '');
+const getApiBase = () => {
+    let base = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+    base = base.replace(/\/+$/, ''); // Remove trailing slashes
+
+    // Auto-fix if user forgot /api suffix in production env
+    if (!base.endsWith('/api') && !base.includes('localhost')) {
+        base += '/api';
+    }
+
+    return base;
+};
+
+const API_BASE = getApiBase();
+console.log('🌐 API connected to:', API_BASE);
 
 export const ApiProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const fetchProducts = async (status?: string) => {
