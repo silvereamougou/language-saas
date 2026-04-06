@@ -15,7 +15,8 @@
             "flagged": "Flagged",
             "rejected": "Rejected",
             "pending_changes": "Pending Changes"
-        }
+        },
+        "loading": "Loading Store Resources..."
     },
     "nav": {
         "products": "Products",
@@ -129,5 +130,11 @@
         "terms": "Terms of Use",
         "legal": "Legal Notice",
         "rights": "© 2026 DIGIELERNING Inc. All rights reserved."
+    },
+    "auth": {
+        "syncing": "Syncing Session...",
+        "verifying": "Verifying OTP...",
+        "send_code": "Send Secure Code",
+        "enter_store": "Enter Store"
     }
 }

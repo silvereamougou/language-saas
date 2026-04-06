@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Form } from 'antd';
 import { User, Mail, ChevronRight, Sparkles, KeyRound } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Input } from '../../ui';
 import { useUser } from '../../../context/UserContext';
 import { message } from 'antd';
@@ -12,6 +13,7 @@ interface IdentityModalProps {
 }
 
 const IdentityModal: React.FC<IdentityModalProps> = ({ visible, onClose, onSuccess }) => {
+    const { t } = useTranslation();
     const { requestOtp, verifyOtp } = useUser();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [step, setStep] = useState<'email' | 'otp'>('email');
@@ -109,7 +111,7 @@ const IdentityModal: React.FC<IdentityModalProps> = ({ visible, onClose, onSucce
                             disabled={isSubmitting}
                             className={`w-full h-16 bg-(--text-primary) text-(--bg-primary) rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] transition-all hover:opacity-90 shadow-xl shadow-black/10 flex items-center justify-center gap-3 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : 'active:scale-95'}`}
                         >
-                            {isSubmitting ? 'Syncing...' : <>Send Secure Code <ChevronRight size={18} /></>}
+                            {isSubmitting ? t('auth.syncing') : <>{t('auth.send_code')} <ChevronRight size={18} /></>}
                         </button>
                     </Form>
                 ) : (
@@ -132,7 +134,7 @@ const IdentityModal: React.FC<IdentityModalProps> = ({ visible, onClose, onSucce
                             disabled={isSubmitting}
                             className={`w-full h-16 bg-(--text-primary) text-(--bg-primary) rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] transition-all hover:opacity-90 shadow-xl shadow-black/10 flex items-center justify-center gap-3 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : 'active:scale-95'}`}
                         >
-                            {isSubmitting ? 'Verifying...' : <>Enter Store <ChevronRight size={18} /></>}
+                            {isSubmitting ? t('auth.verifying') : <>{t('auth.enter_store')} <ChevronRight size={18} /></>}
                         </button>
                         <button type="button" onClick={() => setStep('email')} className="text-xs text-text-muted hover:text-text-primary font-bold mt-2">
                             ← Change Email

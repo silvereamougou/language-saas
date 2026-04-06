@@ -15,7 +15,8 @@
             "flagged": "Signalé",
             "rejected": "Rejeté",
             "pending_changes": "Modifications en attente"
-        }
+        },
+        "loading": "Chargement des ressources..."
     },
     "nav": {
         "products": "Produits",
@@ -129,5 +130,11 @@
         "terms": "Conditions d'Utilisation",
         "legal": "Mentions Légales",
         "rights": "© 2026 DIGIELERNING Inc. Tous droits réservés."
+    },
+    "auth": {
+        "syncing": "Synchronisation...",
+        "verifying": "Vérification...",
+        "send_code": "Envoyer le Code",
+        "enter_store": "Accéder à la Boutique"
     }
 }
