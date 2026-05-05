@@ -69,7 +69,7 @@ const IdentityModal: React.FC<IdentityModalProps> = ({ visible, onClose, onSucce
                     border: '1px solid var(--border-color)',
                     padding: 0
                 }
-            }}
+            } as any}
         >
             <div className="p-10 text-center space-y-8 bg-surface-primary relative min-h-[480px] flex flex-col justify-center">
                 <AnimatePresence mode="wait">

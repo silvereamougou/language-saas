@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Form, Typography, message } from 'antd';
 import { CheckCircle, ShieldCheck, Mail, ChevronRight, ArrowLeft, Wallet } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { Input, Select, PhonePicker } from '../../ui';
+import { Input } from '../../ui';
 import { useTheme } from '../../../context/ThemeContext';
 import type { Product } from '../../../types';
 
@@ -14,20 +14,12 @@ interface PaymentModalProps {
     product: Product;
 }
 
-interface CheckoutFormValues {
-    email: string;
-    paymentMethod: 'mtn' | 'orange';
-    phoneNumber: string;
-}
-
 const PaymentModal: React.FC<PaymentModalProps> = ({ visible, onClose, product }) => {
     const { i18n } = useTranslation();
     const { theme: appTheme } = useTheme();
     const [currentView, setCurrentView] = useState<'session' | 'payment' | 'success'>('session');
     const [email, setEmail] = useState('');
     const [isProcessing, setIsProcessing] = useState(false);
-    const [form] = Form.useForm<CheckoutFormValues>();
-
     const priceXAF = new Intl.NumberFormat(i18n.language === 'fr' ? 'fr-FR' : 'en-US').format(product.price);
 
     const handleSessionSubmit = (values: { email: string }) => {
@@ -38,71 +30,6 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ visible, onClose, product }
             setCurrentView('payment');
         }, 800);
     };
-
-    const handleFinalPayment = async () => {
-        try {
-            setIsProcessing(true);
-            const values = form.getFieldsValue();
-
-            const orderData = {
-                email,
-                productId: product._id,
-                amount: product.price,
-                status: 'success',
-                transactionId: `TXN-${Math.random().toString(36).substr(2, 9).toUpperCase()}`,
-                hasAccess: true,
-                phoneNumber: values.phoneNumber,
-                paymentMethod: values.paymentMethod
-            };
-
-            const API_BASE = import.meta.env.VITE_API_URL || 'https://language-saas.onrender.com/api';
-            const response = await fetch(`${API_BASE}/orders`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(orderData),
-            });
-
-            if (!response.ok) throw new Error('Order creation failed');
-
-            setIsProcessing(false);
-            setCurrentView('success');
-            message.success('Payment authorized and order created!');
-        } catch (err) {
-            setIsProcessing(false);
-            message.error('Failed to process order. Please try again.');
-        }
-    };
-
-    const paymentOptions = [
-        {
-            value: 'mtn',
-            label: (
-                <div className="flex items-center gap-3 py-2">
-                    <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center border border-(--border-color) overflow-hidden shrink-0 shadow-sm">
-                        <img src="/assets/mtn_MobileMoney_icon.jpg" alt="MTN" className="w-full h-full object-cover" />
-                    </div>
-                    <div className="flex flex-col text-left">
-                        <span className="text-text-primary font-black text-xs uppercase tracking-tight">MTN Mobile Money</span>
-                        <span className="text-[9px] text-text-muted font-bold uppercase tracking-widest leading-none">Instant Push Request</span>
-                    </div>
-                </div>
-            ),
-        },
-        {
-            value: 'orange',
-            label: (
-                <div className="flex items-center gap-3 py-2">
-                    <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center border border-(--border-color) overflow-hidden shrink-0 shadow-sm">
-                        <img src="/assets/orange_money_icon.jpg" alt="Orange" className="w-full h-full object-cover" />
-                    </div>
-                    <div className="flex flex-col text-left">
-                        <span className="text-text-primary font-black text-xs uppercase tracking-tight">Orange Money</span>
-                        <span className="text-[9px] text-text-muted font-bold uppercase tracking-widest leading-none">Secure PIN Confirmation</span>
-                    </div>
-                </div>
-            ),
-        }
-    ];
 
     return (
         <Modal
