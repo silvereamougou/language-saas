@@ -184,53 +184,49 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ visible, onClose, product }
                     )}
 
                     {currentView === 'payment' && (
-                        <Form
-                            form={form}
-                            layout="vertical"
-                            onFinish={handleFinalPayment}
-                            initialValues={{ email }}
-                            className="flex-1 flex flex-col pt-4"
-                        >
+                        <div className="flex-1 flex flex-col pt-4">
                             <button type="button" onClick={() => setCurrentView('session')} className="mb-6 flex items-center gap-2 text-text-muted hover:text-text-primary transition-colors text-[10px] font-bold uppercase tracking-widest leading-none">
                                 <ArrowLeft size={14} /> Back
                             </button>
 
                             <div className="mb-8">
                                 <Title level={2} className="text-text-primary! mb-1 font-black uppercase tracking-tight">Payment Setup</Title>
-                                <p className="text-text-muted text-sm font-medium uppercase tracking-widest text-[9px]">Select wallet and enter billing number.</p>
+                                <p className="text-text-muted text-sm font-medium uppercase tracking-widest text-[9px]">Complete your purchase securely via Monetbil.</p>
                             </div>
 
-                            <div className="space-y-6">
-                                <Form.Item
-                                    name="paymentMethod"
-                                    rules={[{ required: true, message: 'Select your wallet' }]}
-                                >
-                                    <Select
-                                        label="Payment Wallet"
-                                        options={paymentOptions}
-                                        placeholder="Choose MTN or Orange"
-                                    />
-                                </Form.Item>
-
-                                <Form.Item
-                                    name="phoneNumber"
-                                    rules={[{ required: true, message: 'Phone number required' }]}
-                                >
-                                    <PhonePicker
-                                        label="Billing Number"
-                                        placeholder="6XX XXX XXX"
-                                    />
-                                </Form.Item>
-                            </div>
-
-                            <button
-                                type="submit"
-                                disabled={isProcessing}
-                                className={`w-full h-16 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:opacity-90 font-black uppercase tracking-[0.2em] text-[11px] rounded-2xl transition-all shadow-2xl shadow-black/10 flex items-center justify-center gap-3 mt-10 ${isProcessing ? 'opacity-50 cursor-not-allowed' : 'active:scale-[0.98]'}`}
+                            <form
+                                action="https://api.monetbil.com/widget/v2.1/W4Voiqkf7MpNorzjSsDztxVNrqc6bWtNll0qnyxPjawtwkpCHiLO04EVOMWtD9AU"
+                                method="POST"
+                                data-monetbil="form"
+                                className="space-y-6"
                             >
-                                {isProcessing ? 'Syncing Gateway...' : <>Complete Purchase <ShieldCheck size={18} /></>}
-                            </button>
-                        </Form>
+                                {/* Required Monetbil Parameters */}
+                                <input type="hidden" name="amount" value={product.price} />
+                                <input type="hidden" name="item_name" value={product.name} />
+                                <input type="hidden" name="currency" value="XAF" />
+                                <input type="hidden" name="email" value={email} />
+                                <input type="hidden" name="payment_ref" value={`${product._id}__${email}`} />
+                                <input type="hidden" name="return_url" value="https://digishop24.netlify.app/orders" />
+                                <input type="hidden" name="notify_url" value="https://language-saas.onrender.com/api/payments/monetbil/notify" />
+
+                                <div className="p-6 rounded-3xl bg-surface-primary border border-(--border-color) flex items-center gap-4">
+                                    <div className="w-12 h-12 rounded-2xl bg-[var(--icon-color)]/10 flex items-center justify-center text-[var(--icon-color)]">
+                                        <Wallet size={24} />
+                                    </div>
+                                    <div className="flex-1">
+                                        <p className="text-xs font-black uppercase tracking-widest text-text-muted mb-1">Total to Pay</p>
+                                        <p className="text-xl font-black text-text-primary">XAF {priceXAF}</p>
+                                    </div>
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    className="w-full h-16 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:opacity-90 font-black uppercase tracking-[0.2em] text-[11px] rounded-2xl transition-all shadow-2xl shadow-black/10 flex items-center justify-center gap-3 mt-10 active:scale-[0.98]"
+                                >
+                                    Pay by Mobile Money <ShieldCheck size={18} />
+                                </button>
+                            </form>
+                        </div>
                     )}
 
                     {currentView === 'success' && (

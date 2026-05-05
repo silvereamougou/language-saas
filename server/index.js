@@ -22,6 +22,7 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // Database Connection
@@ -221,6 +222,54 @@ app.delete('/api/products/:id', requireAdmin, async (req, res) => {
 });
 
 // 5. Orders (Protected by requireUser, except Admin can fetch all)
+app.post('/api/payments/monetbil/notify', async (req, res) => {
+    console.log('🔔 Monetbil Notification received:', req.body);
+    try {
+        const { status, amount, transaction_id, payment_ref } = req.body;
+
+        if (status !== 'success') {
+            console.log('❌ Payment failed or cancelled:', status);
+            return res.status(200).send('Payment not successful');
+        }
+
+        // Parse payment_ref (product_id__email)
+        const [productId, userEmail] = payment_ref.split('__');
+
+        if (!productId || !userEmail) {
+            console.error('❌ Invalid payment_ref:', payment_ref);
+            return res.status(400).send('Invalid payment_ref');
+        }
+
+        // Check if order already exists to prevent duplicates
+        const existingOrder = await Order.findOne({ transactionId: transaction_id });
+        if (existingOrder) {
+            console.log('⚠️ Order already processed:', transaction_id);
+            return res.status(200).send('Order already processed');
+        }
+
+        // Logic to create order
+        const newOrder = await Order.create({
+            userEmail: userEmail.toLowerCase(),
+            productId,
+            amount: Number(amount),
+            status: 'success',
+            transactionId: transaction_id,
+            hasAccess: true
+        });
+
+        // Update product analytics
+        await Product.findByIdAndUpdate(productId, {
+            $inc: { totalSales: 1, revenue: Number(amount) || 0 }
+        });
+
+        console.log('✅ Order created successfully for:', userEmail);
+        res.status(200).send('OK');
+    } catch (err) {
+        console.error('❌ Monetbil Notify Error:', err);
+        res.status(500).send('Internal Error');
+    }
+});
+
 app.get('/api/orders', requireAdmin, async (req, res) => {
     try {
         const orders = await Order.find().populate('productId');
