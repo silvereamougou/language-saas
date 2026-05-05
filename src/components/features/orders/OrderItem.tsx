@@ -25,7 +25,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
         try {
             setIsDownloading(true);
             const { token } = await generateDownloadToken(order.productId as string);
-            const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+            const API_URL = import.meta.env.VITE_API_URL || 'https://language-saas.onrender.com/api';
             window.location.href = `${API_URL}/downloads/${token}`;
         } catch (err: any) {
             message.error(err.message || 'Failed to initialize secure download.');

@@ -2,14 +2,13 @@ import React, { createContext, useContext, useState, useEffect, type ReactNode }
 
 interface AdminAuthContextType {
     isAdminAuthenticated: boolean;
-    loginAdmin: (password: string) => Promise<boolean>;
+    loginAdmin: (username: string, password: string) => Promise<{ success: boolean; error?: string }>;
+    registerAdmin: (username: string, password: string, secret: string) => Promise<{ success: boolean; error?: string }>;
     logoutAdmin: () => void;
     adminToken: string | null;
 }
 
 const AdminAuthContext = createContext<AdminAuthContextType | undefined>(undefined);
-
-// In production, this should hit an API endpoint that validates a backend hashed password or JWT.
 
 export const AdminAuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [adminToken, setAdminToken] = useState<string | null>(() => {
@@ -26,24 +25,59 @@ export const AdminAuthProvider: React.FC<{ children: ReactNode }> = ({ children 
         }
     }, [adminToken]);
 
-    const loginAdmin = async (password: string) => {
+    const getApiBase = () => {
+        let base = import.meta.env.VITE_API_URL || 'https://language-saas.onrender.com/api';
+        base = base.replace(/\/+$/, ''); // Remove trailing slashes
+
+        // Auto-fix if user forgot /api suffix in production env
+        if (!base.endsWith('/api') && !base.includes('localhost')) {
+            base += '/api';
+        }
+
+        return base;
+    };
+
+    const API_BASE = getApiBase();
+    console.log('🛡️ Admin Auth API Base:', API_BASE);
+
+    const loginAdmin = async (username: string, password: string) => {
+        console.log('Attempting login at:', `${API_BASE}/admin/login`);
         try {
-            const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-            const res = await fetch(`${API_URL}/admin/login`, {
+            const res = await fetch(`${API_BASE}/admin/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ password }),
+                body: JSON.stringify({ username, password }),
             });
             const data = await res.json();
 
             if (res.ok && data.token) {
                 setAdminToken(data.token);
-                return true;
+                return { success: true };
             }
-            return false;
+            return { success: false, error: data.error || 'Login failed' };
         } catch (err) {
             console.error('Login error:', err);
-            return false;
+            return { success: false, error: 'Network error or server down' };
+        }
+    };
+
+    const registerAdmin = async (username: string, password: string, secret: string) => {
+        console.log('Attempting register at:', `${API_BASE}/admin/register`);
+        try {
+            const res = await fetch(`${API_BASE}/admin/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password, secret }),
+            });
+            const data = await res.json();
+
+            if (res.ok) {
+                return { success: true };
+            }
+            return { success: false, error: data.error || 'Registration failed' };
+        } catch (err) {
+            console.error('Registration error:', err);
+            return { success: false, error: 'Network error or server down' };
         }
     };
 
@@ -52,7 +86,7 @@ export const AdminAuthProvider: React.FC<{ children: ReactNode }> = ({ children 
     };
 
     return (
-        <AdminAuthContext.Provider value={{ isAdminAuthenticated, loginAdmin, logoutAdmin, adminToken }}>
+        <AdminAuthContext.Provider value={{ isAdminAuthenticated, loginAdmin, registerAdmin, logoutAdmin, adminToken }}>
             {children}
         </AdminAuthContext.Provider>
     );

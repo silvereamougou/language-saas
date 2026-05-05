@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useProduct } from '../../hooks/useProducts';
+import { useApi } from '../../context/ApiContext';
 import { ArrowLeft, Download, DollarSign, Layers, Activity, Plus } from 'lucide-react';
 import { Badge, Input as UIInput } from '../../components/ui';
 import type { ProductVersion } from '../../types';
@@ -9,6 +10,7 @@ const AdminProductViewPage: React.FC = () => {
     const navigate = useNavigate();
     const { id } = useParams<{ id: string }>();
     const { product, isLoading, error, refresh } = useProduct(id) as any;
+    const { addVersion } = useApi();
     const [isAddingVersion, setIsAddingVersion] = useState(false);
     const [newV, setNewV] = useState({ version: '', fileUrl: '', changelog: '' });
 
@@ -31,12 +33,8 @@ const AdminProductViewPage: React.FC = () => {
 
     const handleAddVersion = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/products/${id}/versions`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(newV),
-            });
-            if (!response.ok) throw new Error('Failed to add version');
+            if (!id) return;
+            await addVersion(id, newV);
             setIsAddingVersion(false);
             setNewV({ version: '', fileUrl: '', changelog: '' });
             refresh(); // Refresh product to show new version

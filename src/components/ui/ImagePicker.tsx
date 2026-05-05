@@ -32,7 +32,8 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
             const formData = new FormData();
             formData.append('image', file);
 
-            const response = await fetch('http://localhost:5000/api/upload', {
+            const API_BASE = import.meta.env.VITE_API_URL || 'https://language-saas.onrender.com/api';
+            const response = await fetch(`${API_BASE}/upload`, {
                 method: 'POST',
                 body: formData,
             });

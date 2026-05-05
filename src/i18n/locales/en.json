@@ -135,6 +135,8 @@
         "syncing": "Syncing Session...",
         "verifying": "Verifying OTP...",
         "send_code": "Send Secure Code",
-        "enter_store": "Enter Store"
+        "enter_store": "Enter Store",
+        "email_sent": "Email Sent!",
+        "otp_code_sent": "We've sent a 6-digit verification code to"
     }
 }

@@ -10,7 +10,9 @@ export const requireAdmin = (req, res, next) => {
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret_for_development');
 
-        // You could check decoded.role === 'admin' later if you have multiple roles
+        if (decoded.role !== 'admin') {
+            return res.status(403).json({ error: 'Access denied. Admin role required.' });
+        }
         req.user = decoded;
         next();
     } catch (err) {

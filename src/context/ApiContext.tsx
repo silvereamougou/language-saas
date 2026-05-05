@@ -17,7 +17,7 @@ interface ApiContextType {
 const ApiContext = createContext<ApiContextType | undefined>(undefined);
 
 const getApiBase = () => {
-    let base = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+    let base = import.meta.env.VITE_API_URL || 'https://language-saas.onrender.com/api';
     base = base.replace(/\/+$/, ''); // Remove trailing slashes
 
     // Auto-fix if user forgot /api suffix in production env

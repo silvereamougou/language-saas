@@ -40,10 +40,23 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
     }, [user, customerToken]);
 
+    const getApiBase = () => {
+        let base = import.meta.env.VITE_API_URL || 'https://language-saas.onrender.com/api';
+        base = base.replace(/\/+$/, ''); // Remove trailing slashes
+
+        // Auto-fix if user forgot /api suffix in production env
+        if (!base.endsWith('/api') && !base.includes('localhost')) {
+            base += '/api';
+        }
+
+        return base;
+    };
+
+    const API_BASE = getApiBase();
+
     const requestOtp = async (name: string, email: string) => {
         try {
-            const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-            const res = await fetch(`${API_URL}/auth/request-otp`, {
+            const res = await fetch(`${API_BASE}/auth/request-otp`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, email })
@@ -56,8 +69,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     const verifyOtp = async (email: string, otp: string) => {
         try {
-            const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-            const res = await fetch(`${API_URL}/auth/verify-otp`, {
+            const res = await fetch(`${API_BASE}/auth/verify-otp`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, otp })

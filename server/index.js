@@ -6,8 +6,10 @@ import { Product } from './models/Product.js';
 import { ProductVersion } from './models/ProductVersion.js';
 import { Order } from './models/Order.js';
 import { User } from './models/User.js';
+import { Admin } from './models/Admin.js';
 import { DownloadToken } from './models/DownloadToken.js';
 import { upload } from './config/cloudinary.js';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import https from 'https';
@@ -37,21 +39,58 @@ app.get('/', (req, res) => {
 // 1. Health Check
 app.get('/api/health', (req, res) => res.json({ status: 'OK' }));
 
-// 1.5 Admin Authentication
-app.post('/api/admin/login', (req, res) => {
-    const { password } = req.body;
-    // Verify against environment variable password (fallback for local dev)
-    const validPassword = process.env.ADMIN_PASSWORD || 'password123';
+// 1.4 Admin Registration (Protected)
+app.post('/api/admin/register', async (req, res) => {
+    try {
+        const { username, password, secret } = req.body;
+        // Verify against environment variable secret for extra security
+        const registrationSecret = process.env.ADMIN_REGISTRATION_SECRET || 'admin_secret_123';
 
-    if (password === validPassword) {
-        const token = jwt.sign(
-            { role: 'admin' },
-            process.env.JWT_SECRET || 'fallback_secret_for_development',
-            { expiresIn: '24h' }
-        );
-        res.json({ token });
-    } else {
-        res.status(401).json({ error: 'Invalid password' });
+        if (secret !== registrationSecret) {
+            return res.status(401).json({ error: 'Invalid registration secret' });
+        }
+
+        const existingAdmin = await Admin.findOne({ username });
+        if (existingAdmin) {
+            return res.status(400).json({ error: 'Admin username already exists' });
+        }
+
+        const newAdmin = new Admin({ username, password });
+        await newAdmin.save();
+
+        res.status(201).json({ message: 'Admin account created successfully' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// 1.5 Admin Authentication
+app.post('/api/admin/login', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+
+        // DB Search
+        const admin = await Admin.findOne({ username });
+
+        if (!admin) {
+            return res.status(401).json({ error: 'Invalid username or password' });
+        }
+
+        // Use the model method for comparison
+        const isMatch = await admin.comparePassword(password);
+
+        if (isMatch) {
+            const token = jwt.sign(
+                { id: admin._id, username: admin.username, role: 'admin' },
+                process.env.JWT_SECRET || 'fallback_secret_for_development',
+                { expiresIn: '24h' }
+            );
+            res.json({ token, user: { username: admin.username, role: 'admin' } });
+        } else {
+            res.status(401).json({ error: 'Invalid username or password' });
+        }
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 });
 

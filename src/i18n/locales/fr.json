@@ -135,6 +135,8 @@
         "syncing": "Synchronisation...",
         "verifying": "Vérification...",
         "send_code": "Envoyer le Code",
-        "enter_store": "Accéder à la Boutique"
+        "enter_store": "Accéder à la Boutique",
+        "email_sent": "E-mail Envoyé !",
+        "otp_code_sent": "Nous avons envoyé un code de vérification à 6 chiffres à"
     }
 }

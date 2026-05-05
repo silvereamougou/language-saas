@@ -55,7 +55,8 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ visible, onClose, product }
                 paymentMethod: values.paymentMethod
             };
 
-            const response = await fetch('http://localhost:5000/api/orders', {
+            const API_BASE = import.meta.env.VITE_API_URL || 'https://language-saas.onrender.com/api';
+            const response = await fetch(`${API_BASE}/orders`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(orderData),
